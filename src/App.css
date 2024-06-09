@@ -1,0 +1,21 @@
+#root {
+  @apply w-screen h-screen m-auto text-center;
+}
+
+#container {
+  @apply w-full h-full flex justify-center items-center bg-[#708090];
+}
+
+@media (min-width: 1000px) {
+  #container .bar-chart {
+    @apply shadow-[2px_2px_20px];
+  }
+}
+
+.bar-chart {
+  @apply bg-[#fff] px-4 py-8 absolute top-4;
+}
+
+#container .bar-chart {
+  @apply h-[560px] w-[900px] bg-[#fff] flex flex-col p-5 self-center relative;
+}

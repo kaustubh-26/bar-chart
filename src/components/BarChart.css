@@ -1,0 +1,27 @@
+* {
+    @apply m-0 p-0;
+}
+
+#title {
+    @apply text-[2.5em] title-font;
+}
+
+.info {
+    @apply text-xs;
+}
+
+.overlay {
+    @apply absolute bg-[#fff] pointer-events-none;
+}
+
+#tooltip {
+    @apply flex items-center justify-center text-center p-[2px] text-sm w-[150px] h-[50px] bg-[#b0c4de] absolute shadow-[1px_1px_10px] rounded-[2px] pointer-events-none;
+}
+
+#y-axis path {
+    @apply stroke-black stroke-1 fill-none;
+}
+
+#x-axis path {
+@apply stroke-black stroke-1 fill-none;
+}
