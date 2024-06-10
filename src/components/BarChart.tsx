@@ -2,6 +2,8 @@ import * as d3 from 'd3';
 import './BarChart.css';
 import { useEffect } from 'react';
 
+type Data = [string,number]
+
 const BarChart = () => {
   const width = 800;
   const height = 400;
@@ -42,11 +44,11 @@ const BarChart = () => {
       const barWidth = width / chartData.length;
 
       // Plot X-Axis
-      const dates = chartData.map((element) => {
+      const dates = chartData.map((element: Data) => {
         return new Date(element[0]);
       });
       
-      const xMax = new Date(d3.max(dates));
+      const xMax = new Date(`${d3.max(dates)}`);
       xMax.setMonth(xMax.getMonth() + 3);
       
       const xScale = d3
@@ -63,7 +65,7 @@ const BarChart = () => {
       .attr('transform', `translate(60, ${height})`);
       
       // Plot Y-Axis
-      const GDP = chartData.map((element) => {
+      const GDP = chartData.map((element: Data) => {
         return element[1];
       });
       
@@ -86,12 +88,12 @@ const BarChart = () => {
       .attr('transform', `translate(60, 0)`);
 
       // Plot bar chart
-      const scaledGDP = GDP.map((element) => {
+      const scaledGDP = GDP.map((element: number) => {
         return yScale(element);
       });
 
       // separate years
-      const years = chartData.map((element) => {
+      const years = chartData.map((element: Data) => {
         let quarter;
         const month = element[0].substring(5, 7);
         if (month === '01') {
@@ -114,23 +116,21 @@ const BarChart = () => {
       .append("rect")
       .attr("class", "bar")
       .style("fill", "#33adff")
-      .attr("data-date", (d,i) => {
+      .attr("data-date", (_,i) => {
         return chartData[i][0]
       })
-      .attr("data-gdp", (d,i) => {
+      .attr("data-gdp", (_,i) => {
         return chartData[i][1]
       })
-      .attr("x", (d, i) => {
+      .attr("x", (_, i) => {
         return 60 + xScale(dates[i]);
       })
       .attr("y", (d) => {
         return height - d;
       })
       .attr("width", barWidth)
-      .attr("height", (d) => {
-        return d;
-      })
-      .attr("index", (d,i) => i)
+      .attr("height", d => d)
+      .attr("index", (_,i) => i)
       .on("mouseover", (e, d) => {
         const i = e.target.attributes.index.value;
 
@@ -155,7 +155,7 @@ const BarChart = () => {
         .style("top", "400px")
 
       })
-      .on("mouseout", (e, d) => {
+      .on("mouseout", () => {
         overlay.transition().duration(0).style("opacity", 0)
         tooltip.transition().duration(200).style("opacity", 0)
       })
